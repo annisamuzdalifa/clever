@@ -5,5 +5,6 @@
   CLEVER
   <br>
 </h1>
+![alt text](https://github.com/gatotkaca-team/clever/blob/main/images/logo.svg?raw=true)
 
 <h4 align="center">An Advanced and Seamless Liquidity Management Based on Predictive Analytics for Multilateral Cross-Border Platforms​.</h4>
