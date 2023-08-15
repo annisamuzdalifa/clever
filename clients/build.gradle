@@ -1,0 +1,131 @@
+buildscript {
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+    dependencies {
+        classpath("com.moowork.gradle:gradle-node-plugin:1.3.1")
+    }
+}
+
+apply plugin: "com.moowork.node"
+apply plugin: 'org.springframework.boot'
+
+sourceSets {
+    main {
+        resources {
+            srcDir rootProject.file("config/dev")
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Corda dependencies.
+    compile "$corda_release_group:corda-rpc:$corda_release_version"
+
+    // CorDapp dependencies.
+    compile project(":contracts")
+    compile project(":workflows")
+    compile "net.corda:corda-jackson:$corda_release_version"
+    compile("org.springframework.boot:spring-boot-starter-websocket:$spring_boot_version") {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+    compile "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
+    compile "org.apache.logging.log4j:log4j-web:${log4j_version}"
+    compile "org.slf4j:jul-to-slf4j:$slf4j_version"
+}
+
+
+springBoot {
+    mainClassName = "net.corda.samples.tokentofriend.webserver.ServerKt"
+}
+
+//task copyWebApp(type: Copy) {
+//    from 'src/main/webapp/build'
+//    into 'build/resources/main/static/.'
+//}
+//
+//task appNpmInstall(type: NpmTask) {
+//    description = "Installs all dependencies from package.json"
+//    workingDir = file("${project.projectDir}/src/main/webapp")
+//    args = ["install"]
+//}
+//
+//task appNpmBuild(type: NpmTask) {
+//    description = "Builds production version of the webapp"
+//    workingDir = file("${project.projectDir}/src/main/webapp")
+//    args = ["run", "build"]
+//}
+
+//appNpmBuild.dependsOn appNpmInstall
+//copyWebApp.dependsOn appNpmBuild
+//compileJava.dependsOn copyWebApp
+
+
+node {
+  version = '14.19.3'
+  distBaseUrl = 'https://direct.nodejs.org/dist/'
+  download = true
+}
+
+/* The Client is the communication channel between the external and the node. This task will help you immediately
+ * execute your rpc methods in the main method of the client.kt. You can somewhat see this as a quick test of making
+ * RPC calls to your nodes.
+ */
+task runIndoidjaClient(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.Client'
+    args 'localhost:10006', 'indoidja', 'password'
+}
+
+/* This task will start the springboot server that connects to your node (via RPC connection). All of the http requests
+ * are in the Controller file. You can leave the Server.kt and NodeRPCConnection.kt file untouched for your use.
+ */
+task runIndoidjaServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50005', '--config.rpc.host=localhost', '--config.rpc.port=10006', '--config.rpc.username=indoidja', '--config.rpc.password=password'
+}
+
+task runCenaidjaServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50006', '--config.rpc.host=localhost', '--config.rpc.port=10009', '--config.rpc.username=cenaidja', '--config.rpc.password=password'
+}
+
+task runMasgsgsgServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50009', '--config.rpc.host=localhost', '--config.rpc.port=10012', '--config.rpc.username=masgsgsg', '--config.rpc.password=password'
+}
+
+task runDbsssgsgServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50010', '--config.rpc.host=localhost', '--config.rpc.port=10015', '--config.rpc.username=dbsssgsg', '--config.rpc.password=password'
+}
+
+task runRbisinbbServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50013', '--config.rpc.host=localhost', '--config.rpc.port=10021', '--config.rpc.username=rbisinbb', '--config.rpc.password=password'
+}
+
+task runHdfcinbbServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50014', '--config.rpc.host=localhost', '--config.rpc.port=10024', '--config.rpc.username=hdfcinbb', '--config.rpc.password=password'
+}
+
+task runLPManagerServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.template.webserver.ServerKt'
+    args '--server.port=50017', '--config.rpc.host=localhost', '--config.rpc.port=10018', '--config.rpc.username=lpmanager', '--config.rpc.password=password'
+}
+
+
+

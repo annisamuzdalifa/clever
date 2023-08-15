@@ -1,0 +1,41 @@
+State
+[DONE] - PoolTransactionState
+
+Contract
+[DONE] PoolTransactionContract
+
+Flow to Build
+[DONE] Flow Cash Issuance
+[DONE] Flow Redeem Cash 
+[DONE] Flow Staking
+[DONE] Flow Witdrawing
+[DONE] TransferFlow
+[DONE] ExchangeFlow
+[DONE] Oracle function -> just query
+[DONE] CheckCurrentPoolBalance
+[DONE] CheckCurrentFee
+- Pricing logic (Corda Service)
+
+API
+- balance, staked, fee, rate
+- current pool balance and fee
+
+LP Node Participant
+-HDFC (India)
+-DBS (Singapore)
+-CENA (Indonesia)
+
+Dashboard LP:
+-historical pair (rate dan transaksi) (kurang PersistentState)
+-pool balance 
+-stake (in amount)
+-total benefit fee (in amount)
+
+
+
+==== TO-DO ==== 
+[DONE] Add total fee in PoolTransactionState
+[DONE] State Per Pair (exchange Rate) broadcast to all
+[DONE] Oracle func
+[DONE] Persistent PoolTransactionState
+- Amount after 
