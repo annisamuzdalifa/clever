@@ -8,6 +8,9 @@
 
 <h4 align="center">An Advanced and Seamless Liquidity Management Based on Predictive Analytics for Multilateral Cross-Border Platforms​.</h4>
 
+## Architecture
+![screenshot](https://github.com/gatotkaca-team/clever/blob/main/images/architecture.png)
+
 ## Key Features
 
 * Cross Border Payment 
